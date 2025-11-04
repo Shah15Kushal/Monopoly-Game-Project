@@ -1,0 +1,560 @@
+[
+    {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
+        "label": "pygame",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pygame",
+        "description": "pygame",
+        "detail": "pygame",
+        "documentation": {}
+    },
+    {
+        "label": "pygame_menu",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pygame_menu",
+        "description": "pygame_menu",
+        "detail": "pygame_menu",
+        "documentation": {}
+    },
+    {
+        "label": "tycoons",
+        "kind": 5,
+        "importPath": "monopoly",
+        "description": "monopoly",
+        "peekOfCode": "tycoons = [\n    \"Start\",\n    \"Mumbai-₹2200\",\n    \"Delhi-₹2000\",\n    \"Bangalore-₹1800\",\n    \"Kolkata-₹1600\",\n    \"Chennai-₹1400\",\n    \"Hyderabad-₹1200\",\n    \"Jail\",\n    \"Pune-₹1100\",",
+        "detail": "monopoly",
+        "documentation": {}
+    },
+    {
+        "label": "money_values",
+        "kind": 5,
+        "importPath": "monopoly",
+        "description": "monopoly",
+        "peekOfCode": "money_values = [\n    0,2200, 2000, 1800, 1600, 1400, 1200,-1, 1100, 1000,\n    900, 800, 700, 600, 500, 400, 300, 200\n]\nrent = [0.1 * value for value in money_values]\nplayers=int(input(\"enter number of players \"))\nprint(len(tycoons))\nbought_status=[-1]*len(tycoons) \nbought_status[0]=True\npointer=[0]*players",
+        "detail": "monopoly",
+        "documentation": {}
+    },
+    {
+        "label": "rent",
+        "kind": 5,
+        "importPath": "monopoly",
+        "description": "monopoly",
+        "peekOfCode": "rent = [0.1 * value for value in money_values]\nplayers=int(input(\"enter number of players \"))\nprint(len(tycoons))\nbought_status=[-1]*len(tycoons) \nbought_status[0]=True\npointer=[0]*players\nmoney=[10000]*players\njail_rounds=[0]*players\nwhile True:\n    print(bought_status)",
+        "detail": "monopoly",
+        "documentation": {}
+    },
+    {
+        "label": "ownership",
+        "kind": 2,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "def ownership():\n    card_size = 75  # Adjust this based on your card size\n    for index,owner in enumerate(bought_status):\n        if owner is not None and owner in bought_status and owner !=-1:\n            card_no = index\n            if 0<=card_no<=9:\n                y=0\n                x=card_no*80\n            elif 9<card_no<=18:\n                x=725",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "cards",
+        "kind": 2,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "def cards():\n    color_index = 0\n    for i in range(0, screen_width, 80):\n        pygame.draw.rect(gameWindow, tycoons_colors[color_index], (i, 0, 75, 75))\n        pygame.draw.rect(gameWindow, tycoons_colors[color_index], (0, i + 80, 75, 75))\n        pygame.draw.rect(gameWindow, tycoons_colors[color_index], (80 + i, 725, 75, 75))\n        pygame.draw.rect(gameWindow, tycoons_colors[color_index], (725, 80 + i, 75, 75))\n        color_index += 1\n        if color_index >= len(tycoons_colors):\n            color_index = color_index % len(tycoons_colors)",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "tokens",
+        "kind": 2,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "def tokens(player_pos, colors):\n    for i in range(len(player_pos) // 2):\n        pygame.draw.circle(gameWindow, colors[i], (player_pos[f\"token_x{i+1}\"], player_pos[f\"token_y{i+1}\"]), 5)\ndef text(text,text_type,text_size,color, x, y):\n    font = pygame.font.SysFont(text_type, text_size,bold=True)\n    text=font.render(text,True,color)\n    gameWindow.blit(text, (x, y))\ndef roll_dice():\n    return random.randint(1, 6)\ndef move_token(pointer,dice,player_pos,curr_player):",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "text",
+        "kind": 2,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "def text(text,text_type,text_size,color, x, y):\n    font = pygame.font.SysFont(text_type, text_size,bold=True)\n    text=font.render(text,True,color)\n    gameWindow.blit(text, (x, y))\ndef roll_dice():\n    return random.randint(1, 6)\ndef move_token(pointer,dice,player_pos,curr_player):\n    pointer[curr_player] = pointer[curr_player] + dice\n    if pointer[curr_player] <= 9:\n        player_pos[f\"token_x{curr_player+1}\"] += dice * 80",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "roll_dice",
+        "kind": 2,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "def roll_dice():\n    return random.randint(1, 6)\ndef move_token(pointer,dice,player_pos,curr_player):\n    pointer[curr_player] = pointer[curr_player] + dice\n    if pointer[curr_player] <= 9:\n        player_pos[f\"token_x{curr_player+1}\"] += dice * 80\n        player_pos[f\"token_y{curr_player+1}\"] = 40\n    elif 9 < pointer[curr_player] <= 18:\n        remaining_steps = pointer[curr_player] - 9\n        if remaining_steps <= dice:",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "move_token",
+        "kind": 2,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "def move_token(pointer,dice,player_pos,curr_player):\n    pointer[curr_player] = pointer[curr_player] + dice\n    if pointer[curr_player] <= 9:\n        player_pos[f\"token_x{curr_player+1}\"] += dice * 80\n        player_pos[f\"token_y{curr_player+1}\"] = 40\n    elif 9 < pointer[curr_player] <= 18:\n        remaining_steps = pointer[curr_player] - 9\n        if remaining_steps <= dice:\n            player_pos[f\"token_x{curr_player+1}\"] = 760\n            player_pos[f\"token_y{curr_player+1}\"] += remaining_steps * 80",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "image",
+        "kind": 2,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "def image(img,x,y,width,height):\n    full_path =  f\"resources/{img}\"\n    dice_img = pygame.image.load(full_path).convert_alpha()\n    dice_img = pygame.transform.scale(dice_img,(width,height))\n    gameWindow.blit(dice_img, (x, y))\ndef user_info(money):\n    user_no=1\n    for user in range(total_players): \n        pygame.draw.rect(gameWindow,(0,255,255),(130+user*450,120,90,25))\n        image(f\"user{user_no}.png\",130+user*450,145,90,60)",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "user_info",
+        "kind": 2,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "def user_info(money):\n    user_no=1\n    for user in range(total_players): \n        pygame.draw.rect(gameWindow,(0,255,255),(130+user*450,120,90,25))\n        image(f\"user{user_no}.png\",130+user*450,145,90,60)\n        text(f\"₹{money[user]}\",\"Courier New\",20,white,130+user*455,210)\n        text(f\"player{user+1}\",\"Courier New\",20,black,135+user*450,125)\n        # user_no+=1\n        if total_players>2 and user+2<total_players:\n            pygame.draw.rect(gameWindow,(0,255,255),(580-user*450,550,90,25))",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "chance",
+        "kind": 2,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "def chance(dice):\n    pygame.draw.rect(gameWindow,black,(360, 360, 80, 80))\n    text(f\"You landed on a chance with {dice}\",\"Courier New\",32,white,135,380)\n    if dice==1:\n        pygame.draw.ellipse(gameWindow,(0,255,145),(100,300,600,200))\n        text(\"Insurance payment ₹500\",\"Courier New\",32,black,135,380)\n        if money[curr_player]>500:\n            money[curr_player]-=500\n    elif dice==2:\n        pygame.draw.ellipse(gameWindow,(0,255,145),(100,300,600,200))",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "auction",
+        "kind": 2,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "def auction():\n    pygame.draw.rect(gameWindow,(129,228,247),(50,50,600,600))\n    text(\"You landed on an Auction!You have following to get it auctioneed!\",\"Courier New\",32,black,65,65)\n    pass\ndef board():\n    gameWindow.fill(black)\n    cards()\n    tokens(player_pos,token_colors)\n    image(\"dice.png\",380,380,40,40)\n    text(\"Roll dice\",\"Times New Roman\", 14, white, 375, 375)",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "board",
+        "kind": 2,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "def board():\n    gameWindow.fill(black)\n    cards()\n    tokens(player_pos,token_colors)\n    image(\"dice.png\",380,380,40,40)\n    text(\"Roll dice\",\"Times New Roman\", 14, white, 375, 375)\n    user_info(money) \nboard()\npygame.display.update()\ndef loan():",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "loan",
+        "kind": 2,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "def loan():\n    pygame.draw.rect(gameWindow,(70,70,70),(360,605,80,30))\n    text(\"Take loan\",\"Times New Roman\", 14,white,375,610)\ndef apply_loan():\n    loan_text = \"\"  \n    running = True  \n    while running:\n        board()\n        pygame.draw.rect(gameWindow, (128, 128, 128), (360, 605, 200, 30)) \n        text(\"Type loan amount:\", \"Times New Roman\", 20, white, 365, 580)  ",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "apply_loan",
+        "kind": 2,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "def apply_loan():\n    loan_text = \"\"  \n    running = True  \n    while running:\n        board()\n        pygame.draw.rect(gameWindow, (128, 128, 128), (360, 605, 200, 30)) \n        text(\"Type loan amount:\", \"Times New Roman\", 20, white, 365, 580)  \n        for event in pygame.event.get():\n            if event.type == pygame.QUIT:\n                pygame.quit()",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "exit_game",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "exit_game = False\nscreen_width = 800\nscreen_height = 800\nwhite = (255, 255, 255)\nblack = (0, 0, 0)\nred = (255, 0, 0)\nblue = (0, 0, 255)\nyellow=(255, 255, 0)\npurple=(128, 0, 128)\ngreen=(0, 128, 0)",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "screen_width",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "screen_width = 800\nscreen_height = 800\nwhite = (255, 255, 255)\nblack = (0, 0, 0)\nred = (255, 0, 0)\nblue = (0, 0, 255)\nyellow=(255, 255, 0)\npurple=(128, 0, 128)\ngreen=(0, 128, 0)\ngrey= (128, 128, 128)",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "screen_height",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "screen_height = 800\nwhite = (255, 255, 255)\nblack = (0, 0, 0)\nred = (255, 0, 0)\nblue = (0, 0, 255)\nyellow=(255, 255, 0)\npurple=(128, 0, 128)\ngreen=(0, 128, 0)\ngrey= (128, 128, 128)\n# loan_text=0",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "white",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "white = (255, 255, 255)\nblack = (0, 0, 0)\nred = (255, 0, 0)\nblue = (0, 0, 255)\nyellow=(255, 255, 0)\npurple=(128, 0, 128)\ngreen=(0, 128, 0)\ngrey= (128, 128, 128)\n# loan_text=0\ntycoons_colors=[yellow,purple,green,grey,white]",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "black",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "black = (0, 0, 0)\nred = (255, 0, 0)\nblue = (0, 0, 255)\nyellow=(255, 255, 0)\npurple=(128, 0, 128)\ngreen=(0, 128, 0)\ngrey= (128, 128, 128)\n# loan_text=0\ntycoons_colors=[yellow,purple,green,grey,white]\ngameWindow = pygame.display.set_mode((screen_width, screen_height))     ",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "red",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "red = (255, 0, 0)\nblue = (0, 0, 255)\nyellow=(255, 255, 0)\npurple=(128, 0, 128)\ngreen=(0, 128, 0)\ngrey= (128, 128, 128)\n# loan_text=0\ntycoons_colors=[yellow,purple,green,grey,white]\ngameWindow = pygame.display.set_mode((screen_width, screen_height))     \npygame.display.update()",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "blue",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "blue = (0, 0, 255)\nyellow=(255, 255, 0)\npurple=(128, 0, 128)\ngreen=(0, 128, 0)\ngrey= (128, 128, 128)\n# loan_text=0\ntycoons_colors=[yellow,purple,green,grey,white]\ngameWindow = pygame.display.set_mode((screen_width, screen_height))     \npygame.display.update()\nclock = pygame.time.Clock()",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "gameWindow",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "gameWindow = pygame.display.set_mode((screen_width, screen_height))     \npygame.display.update()\nclock = pygame.time.Clock()\n#game variables\ntycoons = [\n    \"Start\",\"Mumbai\",\"Delhi\",\"Bangalore\",\"Kolkata\",\"Chennai\",\"Airways\",\"Hyderabad\",\"Kochi\",\"Jail\",\n    \"Pune\",\"Ahmedabad\",\"Jaipur\",\"Surat\",\"Nagpur\",\"Dungarpur\",\"Visakhapatnam\",\"Jammu\",\"CLUB\",\n    \"Indore\",\"Ranchi\",\"Bhopal\",\"Patna\",\"Guwahati\",\"Lucknow\",\"Coimbatore\",\"Madurai\",\"Go to Jail\",\n    \"Jodhpur\", \"Raipur\",\"Allahabad\",\"Vijayawada\",\"Dehradun\",\"Imphal\",\"Siliguri\",\"Manali\"\n]",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "clock",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "clock = pygame.time.Clock()\n#game variables\ntycoons = [\n    \"Start\",\"Mumbai\",\"Delhi\",\"Bangalore\",\"Kolkata\",\"Chennai\",\"Airways\",\"Hyderabad\",\"Kochi\",\"Jail\",\n    \"Pune\",\"Ahmedabad\",\"Jaipur\",\"Surat\",\"Nagpur\",\"Dungarpur\",\"Visakhapatnam\",\"Jammu\",\"CLUB\",\n    \"Indore\",\"Ranchi\",\"Bhopal\",\"Patna\",\"Guwahati\",\"Lucknow\",\"Coimbatore\",\"Madurai\",\"Go to Jail\",\n    \"Jodhpur\", \"Raipur\",\"Allahabad\",\"Vijayawada\",\"Dehradun\",\"Imphal\",\"Siliguri\",\"Manali\"\n]\ncurr_player=0\nmoney_values=[0,2500,2200,2100,2100,1800,2000,1500,1100,-1,",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "tycoons",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "tycoons = [\n    \"Start\",\"Mumbai\",\"Delhi\",\"Bangalore\",\"Kolkata\",\"Chennai\",\"Airways\",\"Hyderabad\",\"Kochi\",\"Jail\",\n    \"Pune\",\"Ahmedabad\",\"Jaipur\",\"Surat\",\"Nagpur\",\"Dungarpur\",\"Visakhapatnam\",\"Jammu\",\"CLUB\",\n    \"Indore\",\"Ranchi\",\"Bhopal\",\"Patna\",\"Guwahati\",\"Lucknow\",\"Coimbatore\",\"Madurai\",\"Go to Jail\",\n    \"Jodhpur\", \"Raipur\",\"Allahabad\",\"Vijayawada\",\"Dehradun\",\"Imphal\",\"Siliguri\",\"Manali\"\n]\ncurr_player=0\nmoney_values=[0,2500,2200,2100,2100,1800,2000,1500,1100,-1,\n              1400,1800,1800,900,1200,1500,900,1800,-1,\n              1100,1200,900,1000,1100,1200,900,1300,-1,",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "total_players",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "total_players = 2\nrent = [int(0.1 * value)  for value in money_values]\nmoney=[20000]*total_players\njail_rounds=[0]*total_players\nplayer_pos = {}\ntoken_colors = [red, blue,green,black]\nbought_status=[-1]*len(tycoons)\nbought_status[0]=None\ncurr_loan=[0]*total_players\n# bought_status[tycoons.index(\"Chance\")]=None",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "rent",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "rent = [int(0.1 * value)  for value in money_values]\nmoney=[20000]*total_players\njail_rounds=[0]*total_players\nplayer_pos = {}\ntoken_colors = [red, blue,green,black]\nbought_status=[-1]*len(tycoons)\nbought_status[0]=None\ncurr_loan=[0]*total_players\n# bought_status[tycoons.index(\"Chance\")]=None\n# bought_status[tycoons.index(\"Community Chest\")]=None",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "player_pos",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "player_pos = {}\ntoken_colors = [red, blue,green,black]\nbought_status=[-1]*len(tycoons)\nbought_status[0]=None\ncurr_loan=[0]*total_players\n# bought_status[tycoons.index(\"Chance\")]=None\n# bought_status[tycoons.index(\"Community Chest\")]=None\njail_rounds=[0]*total_players\nfor i in range(total_players):\n    player_pos[f\"token_x{i+1}\"] = 40 - (i * 10)",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "token_colors",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "token_colors = [red, blue,green,black]\nbought_status=[-1]*len(tycoons)\nbought_status[0]=None\ncurr_loan=[0]*total_players\n# bought_status[tycoons.index(\"Chance\")]=None\n# bought_status[tycoons.index(\"Community Chest\")]=None\njail_rounds=[0]*total_players\nfor i in range(total_players):\n    player_pos[f\"token_x{i+1}\"] = 40 - (i * 10)\n    player_pos[f\"token_y{i+1}\"] = 40 - (i * 10)",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "pointer",
+        "kind": 5,
+        "importPath": "monopolypygame",
+        "description": "monopolypygame",
+        "peekOfCode": "pointer = [0] * total_players\ndice_rolled= False\nin_jail=False\n#functions \ndef ownership():\n    card_size = 75  # Adjust this based on your card size\n    for index,owner in enumerate(bought_status):\n        if owner is not None and owner in bought_status and owner !=-1:\n            card_no = index\n            if 0<=card_no<=9:",
+        "detail": "monopolypygame",
+        "documentation": {}
+    },
+    {
+        "label": "ownership",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def ownership():\n    card_size = 75  # Adjust this based on your card size\n    for index,owner in enumerate(bought_status):\n        if owner is not None and owner in bought_status and owner !=-1:\n            card_no = index\n            if 0<=card_no<=9:\n                y=0\n                x=card_no*80\n            elif 9<card_no<=18:\n                x=725",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "cards",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def cards():\n    color_index = 0\n    for i in range(0, screen_width, 80):\n        pygame.draw.rect(gameWindow, tycoons_colors[color_index], (i, 0, 75, 75))\n        pygame.draw.rect(gameWindow, tycoons_colors[color_index], (0, i + 80, 75, 75))\n        pygame.draw.rect(gameWindow, tycoons_colors[color_index], (80 + i, 725, 75, 75))\n        pygame.draw.rect(gameWindow, tycoons_colors[color_index], (725, 80 + i, 75, 75))\n        color_index += 1\n        if color_index >= len(tycoons_colors):\n            color_index = color_index % len(tycoons_colors)",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "tokens",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def tokens(player_pos, colors):\n    for i in range(len(player_pos) // 2):\n        pygame.draw.circle(gameWindow, colors[i], (player_pos[f\"token_x{i+1}\"], player_pos[f\"token_y{i+1}\"]), 5)\ndef text(text,text_type,text_size,color, x, y):\n    font = pygame.font.SysFont(text_type, text_size,bold=True)\n    text=font.render(text,True,color)\n    gameWindow.blit(text, (x, y))\ndef roll_dice():\n    return random.randint(1, 6)\ndef move_token(pointer,dice,player_pos,curr_player):",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "text",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def text(text,text_type,text_size,color, x, y):\n    font = pygame.font.SysFont(text_type, text_size,bold=True)\n    text=font.render(text,True,color)\n    gameWindow.blit(text, (x, y))\ndef roll_dice():\n    return random.randint(1, 6)\ndef move_token(pointer,dice,player_pos,curr_player):\n    pointer[curr_player] = pointer[curr_player] + dice\n    if pointer[curr_player] <= 9:\n        player_pos[f\"token_x{curr_player+1}\"] += dice * 80",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "roll_dice",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def roll_dice():\n    return random.randint(1, 6)\ndef move_token(pointer,dice,player_pos,curr_player):\n    pointer[curr_player] = pointer[curr_player] + dice\n    if pointer[curr_player] <= 9:\n        player_pos[f\"token_x{curr_player+1}\"] += dice * 80\n        player_pos[f\"token_y{curr_player+1}\"] = 40\n    elif 9 < pointer[curr_player] <= 18:\n        remaining_steps = pointer[curr_player] - 9\n        if remaining_steps <= dice:",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "move_token",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def move_token(pointer,dice,player_pos,curr_player):\n    pointer[curr_player] = pointer[curr_player] + dice\n    if pointer[curr_player] <= 9:\n        player_pos[f\"token_x{curr_player+1}\"] += dice * 80\n        player_pos[f\"token_y{curr_player+1}\"] = 40\n    elif 9 < pointer[curr_player] <= 18:\n        remaining_steps = pointer[curr_player] - 9\n        if remaining_steps <= dice:\n            player_pos[f\"token_x{curr_player+1}\"] = 760\n            player_pos[f\"token_y{curr_player+1}\"] += remaining_steps * 80",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "image",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def image(img,x,y,width,height):\n    full_path =  f\"resources/{img}\"\n    dice_img = pygame.image.load(full_path).convert_alpha()\n    dice_img = pygame.transform.scale(dice_img,(width,height))\n    gameWindow.blit(dice_img, (x, y))\ndef user_info(money):\n    user_no=1\n    for user in range(total_players): \n        pygame.draw.rect(gameWindow,(0,255,255),(130+user*450,120,90,25))\n        image(f\"user{user_no}.png\",130+user*450,145,90,60)",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "user_info",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def user_info(money):\n    user_no=1\n    for user in range(total_players): \n        pygame.draw.rect(gameWindow,(0,255,255),(130+user*450,120,90,25))\n        image(f\"user{user_no}.png\",130+user*450,145,90,60)\n        text(f\"₹{money[user]}\",\"Courier New\",20,white,130+user*455,210)\n        text(f\"player{user+1}\",\"Courier New\",20,black,135+user*450,125)\n        # user_no+=1\n        if total_players>2 and user+2<total_players:\n            pygame.draw.rect(gameWindow,(0,255,255),(580-user*450,550,90,25))",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "chance",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def chance(dice):\n    pygame.draw.rect(gameWindow,black,(360, 360, 80, 80))\n    text(f\"You landed on a chance with {dice}\",\"Courier New\",32,white,135,380)\n    if dice==1:\n        pygame.draw.ellipse(gameWindow,(0,255,145),(100,300,600,200))\n        text(\"Insurance payment ₹500\",\"Courier New\",32,black,135,380)\n        if money[curr_player]>500:\n            money[curr_player]-=500\n    elif dice==2:\n        pygame.draw.ellipse(gameWindow,(0,255,145),(100,300,600,200))",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "auction",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def auction():\n    pygame.draw.rect(gameWindow,(129,228,247),(50,50,600,600))\n    text(\"You landed on an Auction!You have following to get it auctioneed!\",\"Courier New\",32,black,65,65)\n    pass\ndef board():\n    gameWindow.fill(black)\n    cards()\n    tokens(player_pos,token_colors)\n    image(\"dice.png\",380,380,40,40)\n    text(\"Roll dice\",\"Times New Roman\", 14, white, 375, 375)",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "board",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def board():\n    gameWindow.fill(black)\n    cards()\n    tokens(player_pos,token_colors)\n    image(\"dice.png\",380,380,40,40)\n    text(\"Roll dice\",\"Times New Roman\", 14, white, 375, 375)\n    user_info(money) \nboard()\npygame.display.update()\ndef loan():",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "loan",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def loan():\n    pygame.draw.rect(gameWindow,(70,70,70),(360,605,80,30))\n    text(\"Take loan\",\"Times New Roman\", 14,white,375,610)\ndef apply_loan():\n    loan_text = \"\"  \n    running = True  \n    while running:\n        board()\n        pygame.draw.rect(gameWindow, (128, 128, 128), (360, 605, 200, 30)) \n        text(\"Type loan amount:\", \"Times New Roman\", 20, white, 365, 580)  ",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "apply_loan",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def apply_loan():\n    loan_text = \"\"  \n    running = True  \n    while running:\n        board()\n        pygame.draw.rect(gameWindow, (128, 128, 128), (360, 605, 200, 30)) \n        text(\"Type loan amount:\", \"Times New Roman\", 20, white, 365, 580)  \n        for event in pygame.event.get():\n            if event.type == pygame.QUIT:\n                pygame.quit()",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "exit_game",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "exit_game = False\nscreen_width = 800\nscreen_height = 800\nwhite = (255, 255, 255)\nblack = (0, 0, 0)\nred = (255, 0, 0)\nblue = (0, 0, 255)\nyellow=(255, 255, 0)\npurple=(128, 0, 128)\ngreen=(0, 128, 0)",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "screen_width",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "screen_width = 800\nscreen_height = 800\nwhite = (255, 255, 255)\nblack = (0, 0, 0)\nred = (255, 0, 0)\nblue = (0, 0, 255)\nyellow=(255, 255, 0)\npurple=(128, 0, 128)\ngreen=(0, 128, 0)\ngrey= (128, 128, 128)",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "screen_height",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "screen_height = 800\nwhite = (255, 255, 255)\nblack = (0, 0, 0)\nred = (255, 0, 0)\nblue = (0, 0, 255)\nyellow=(255, 255, 0)\npurple=(128, 0, 128)\ngreen=(0, 128, 0)\ngrey= (128, 128, 128)\n# loan_text=0",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "white",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "white = (255, 255, 255)\nblack = (0, 0, 0)\nred = (255, 0, 0)\nblue = (0, 0, 255)\nyellow=(255, 255, 0)\npurple=(128, 0, 128)\ngreen=(0, 128, 0)\ngrey= (128, 128, 128)\n# loan_text=0\ntycoons_colors=[yellow,purple,green,grey,white]",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "black",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "black = (0, 0, 0)\nred = (255, 0, 0)\nblue = (0, 0, 255)\nyellow=(255, 255, 0)\npurple=(128, 0, 128)\ngreen=(0, 128, 0)\ngrey= (128, 128, 128)\n# loan_text=0\ntycoons_colors=[yellow,purple,green,grey,white]\ngameWindow = pygame.display.set_mode((screen_width, screen_height))     ",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "red",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "red = (255, 0, 0)\nblue = (0, 0, 255)\nyellow=(255, 255, 0)\npurple=(128, 0, 128)\ngreen=(0, 128, 0)\ngrey= (128, 128, 128)\n# loan_text=0\ntycoons_colors=[yellow,purple,green,grey,white]\ngameWindow = pygame.display.set_mode((screen_width, screen_height))     \npygame.display.update()",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "blue",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "blue = (0, 0, 255)\nyellow=(255, 255, 0)\npurple=(128, 0, 128)\ngreen=(0, 128, 0)\ngrey= (128, 128, 128)\n# loan_text=0\ntycoons_colors=[yellow,purple,green,grey,white]\ngameWindow = pygame.display.set_mode((screen_width, screen_height))     \npygame.display.update()\nclock = pygame.time.Clock()",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "gameWindow",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "gameWindow = pygame.display.set_mode((screen_width, screen_height))     \npygame.display.update()\nclock = pygame.time.Clock()\n#game variables\ntycoons = [\n    \"Start\",\"Mumbai\",\"Delhi\",\"Bangalore\",\"Kolkata\",\"Chennai\",\"Airways\",\"Hyderabad\",\"Kochi\",\"Jail\",\n    \"Pune\",\"Ahmedabad\",\"Jaipur\",\"Surat\",\"Nagpur\",\"Dungarpur\",\"Visakhapatnam\",\"Jammu\",\"CLUB\",\n    \"Indore\",\"Ranchi\",\"Bhopal\",\"Patna\",\"Guwahati\",\"Lucknow\",\"Coimbatore\",\"Madurai\",\"Go to Jail\",\n    \"Jodhpur\", \"Raipur\",\"Allahabad\",\"Vijayawada\",\"Dehradun\",\"Imphal\",\"Siliguri\",\"Manali\"\n]",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "clock",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "clock = pygame.time.Clock()\n#game variables\ntycoons = [\n    \"Start\",\"Mumbai\",\"Delhi\",\"Bangalore\",\"Kolkata\",\"Chennai\",\"Airways\",\"Hyderabad\",\"Kochi\",\"Jail\",\n    \"Pune\",\"Ahmedabad\",\"Jaipur\",\"Surat\",\"Nagpur\",\"Dungarpur\",\"Visakhapatnam\",\"Jammu\",\"CLUB\",\n    \"Indore\",\"Ranchi\",\"Bhopal\",\"Patna\",\"Guwahati\",\"Lucknow\",\"Coimbatore\",\"Madurai\",\"Go to Jail\",\n    \"Jodhpur\", \"Raipur\",\"Allahabad\",\"Vijayawada\",\"Dehradun\",\"Imphal\",\"Siliguri\",\"Manali\"\n]\ncurr_player=0\nmoney_values=[0,2500,2200,2100,2100,1800,2000,1500,1100,-1,",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "tycoons",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "tycoons = [\n    \"Start\",\"Mumbai\",\"Delhi\",\"Bangalore\",\"Kolkata\",\"Chennai\",\"Airways\",\"Hyderabad\",\"Kochi\",\"Jail\",\n    \"Pune\",\"Ahmedabad\",\"Jaipur\",\"Surat\",\"Nagpur\",\"Dungarpur\",\"Visakhapatnam\",\"Jammu\",\"CLUB\",\n    \"Indore\",\"Ranchi\",\"Bhopal\",\"Patna\",\"Guwahati\",\"Lucknow\",\"Coimbatore\",\"Madurai\",\"Go to Jail\",\n    \"Jodhpur\", \"Raipur\",\"Allahabad\",\"Vijayawada\",\"Dehradun\",\"Imphal\",\"Siliguri\",\"Manali\"\n]\ncurr_player=0\nmoney_values=[0,2500,2200,2100,2100,1800,2000,1500,1100,-1,\n              1400,1800,1800,900,1200,1500,900,1800,-1,\n              1100,1200,900,1000,1100,1200,900,1300,-1,",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "total_players",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "total_players = 2\nrent = [int(0.1 * value)  for value in money_values]\nmoney=[20000]*total_players\njail_rounds=[0]*total_players\nplayer_pos = {}\ntoken_colors = [red, blue,green,black]\nbought_status=[-1]*len(tycoons)\nbought_status[0]=None\n# bought_status[tycoons.index(\"Chance\")]=None\n# bought_status[tycoons.index(\"Community Chest\")]=None",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "rent",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "rent = [int(0.1 * value)  for value in money_values]\nmoney=[20000]*total_players\njail_rounds=[0]*total_players\nplayer_pos = {}\ntoken_colors = [red, blue,green,black]\nbought_status=[-1]*len(tycoons)\nbought_status[0]=None\n# bought_status[tycoons.index(\"Chance\")]=None\n# bought_status[tycoons.index(\"Community Chest\")]=None\njail_rounds=[0]*total_players",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "player_pos",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "player_pos = {}\ntoken_colors = [red, blue,green,black]\nbought_status=[-1]*len(tycoons)\nbought_status[0]=None\n# bought_status[tycoons.index(\"Chance\")]=None\n# bought_status[tycoons.index(\"Community Chest\")]=None\njail_rounds=[0]*total_players\nfor i in range(total_players):\n    player_pos[f\"token_x{i+1}\"] = 40 - (i * 10)\n    player_pos[f\"token_y{i+1}\"] = 40 - (i * 10)",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "token_colors",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "token_colors = [red, blue,green,black]\nbought_status=[-1]*len(tycoons)\nbought_status[0]=None\n# bought_status[tycoons.index(\"Chance\")]=None\n# bought_status[tycoons.index(\"Community Chest\")]=None\njail_rounds=[0]*total_players\nfor i in range(total_players):\n    player_pos[f\"token_x{i+1}\"] = 40 - (i * 10)\n    player_pos[f\"token_y{i+1}\"] = 40 - (i * 10)\npointer = [0] * total_players",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "pointer",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "pointer = [0] * total_players\ndice_rolled= False\nin_jail=False\n#functions \ndef ownership():\n    card_size = 75  # Adjust this based on your card size\n    for index,owner in enumerate(bought_status):\n        if owner is not None and owner in bought_status and owner !=-1:\n            card_no = index\n            if 0<=card_no<=9:",
+        "detail": "test",
+        "documentation": {}
+    }
+]
